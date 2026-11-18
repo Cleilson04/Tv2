@@ -1,5 +1,9 @@
 name: Build APK
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,12 +16,9 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.9
-      - run: unzip KickTV.zip
-      - run: |
-          echo "android.useAndroidX=true" > KickTV/gradle.properties
-          echo "org.gradle.jvmargs=-Xmx3g" >> KickTV/gradle.properties
-      - run: cd KickTV && gradle assembleDebug
+      - run: unzip Kwitch.zip
+      - run: cd Kwitch && gradle assembleDebug
       - uses: actions/upload-artifact@v4
         with:
-          name: KickTV-apk
-          path: KickTV/app/build/outputs/apk/debug/app-debug.apk
+          name: Kwitch-apk
+          path: Kwitch/app/build/outputs/apk/debug/app-debug.apk
