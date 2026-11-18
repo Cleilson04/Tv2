@@ -13,6 +13,9 @@ jobs:
         with:
           gradle-version: 8.9
       - run: unzip KickTV.zip
+      - run: |
+          echo "android.useAndroidX=true" > KickTV/gradle.properties
+          echo "org.gradle.jvmargs=-Xmx3g" >> KickTV/gradle.properties
       - run: cd KickTV && gradle assembleDebug
       - uses: actions/upload-artifact@v4
         with:
